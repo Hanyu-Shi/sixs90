@@ -2,7 +2,7 @@ This code is an update of 6S.
 
 I assume you are familar with 6S radiative transfer model. http://6s.ltdri.org/
 
-I rewrite the code in free form style. I try to keep original source code as much as possible 
+I rewrite the 6S code in free form style. I try to keep original source code as much as possible 
 	but add necessary declaration of variables and modify all float (real) type variables to 
 	double precision type. Three surface BRDF models are added, which are PROSAIL (version 5B),
 	ACRM(version 12.2012), and a snow reflectance model. I modify these code for convenience 
