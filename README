@@ -1,0 +1,27 @@
+This code is an update of 6S.
+
+I assume you are familar with 6S radiative transfer model. http://6s.ltdri.org/
+
+I rewrite the code in free form style. I try to keep original source code as much as possible 
+	but add necessary declaration of variables and modify all float (real) type variables to 
+	double precision type. Three surface BRDF models are added, which are PROSAIL (version 5B),
+	ACRM(version 12.2012), and a snow reflectance model. I modify these code for convenience 
+	to be coupled in 6S.
+
+Currently, the latest version of 6S are 6SV2.1.
+
+Sevreral bugs are fixed,
+1) subroutine akalbe. In AKTOOL.f90 line 1656 (AKTOOL.f line 1545), the dimensions of variables
+	uu and aa are changed to 48 to keep consistent with the parameters in subroutine dakg.
+2) mainlutaero.f90 line 2466 (mainlutaero.f line 2508), pveg = ul -> pveg = uli
+3) subroutine iso. In ISO.f90 line 38, add the initialization of xmus, xmus = rm(0)
+4) subroutine disom. In DISCOM.f90 line 60 (DISCOM.f line 64), modify two if statements to 
+	avoid memory problems when compiling by Intel Visual Fortran on a Windows platform.
+
+There are two main functions, main.f90 and mainlutaero.f90. The Makefile in sixs90 folder is 
+	recommend, or you can compile them separately in your IDE.
+
+Although the code is in free form style, many statements are written using old synatax. You can
+	help improve and extend this code.
+	
+Aug 30, 2016.
