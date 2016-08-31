@@ -1,0 +1,4 @@
+The BRDF models with labels 11-14 are only included in main.90, thus the 
+	'Input_demo_*.txt' files can not be used for mainlutaero.f90.
+
+Please see 6S User Manual for details. http://6s.ltdri.org/pages/manual.html
