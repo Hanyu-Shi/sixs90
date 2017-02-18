@@ -19,6 +19,6 @@ Several bugs are fixed,
 ### Attention
 There are two main functions, main.f90 and mainlutaero.f90. The Makefile in sixs90 folder is recommend, or just compile them separately in IDE.
 
-Although the code is in free form style, many statements are written using old synatax. You can help improve and extend this code.
+Although the code is in free form style, many statements are written using old syntax. You can help improve and extend this code.
 	
 Aug 30, 2016.
