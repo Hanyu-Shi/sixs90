@@ -2336,7 +2336,7 @@ program ssssss
 
         read(iread,*)s1,s2,s3,s4
 
-        call LoadACRMdata(ncomp1,ncomp2)
+        call LoadACRMdata !(ncomp1,ncomp2)
 
         do l=iinf,isup
           srm(-1) = phirad
