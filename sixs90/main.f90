@@ -366,9 +366,9 @@ program ssssss
 !   before the gauss integration, these values are interpolated to the gauss c
 !   angles                                                                   c
 !****************************************************************************c
-    data angmu /85.0,80.0,70.0,60.0,50.0,40.0,30.0,20.0,10.0,0.00/
-    data angphi/0.00,30.0,60.0,90.0,120.0,150.0,180.0,  &
-              210.0,240.0,270.0,300.0,330.0,360.0/
+    data angmu /85.d0,80.d0,70.d0,60.d0,50.d0,40.d0,30.d0,20.d0,10.d0,0.d00/
+    data angphi/0.d00,30.d0,60.d0,90.d0,120.d0,150.d0,180.d0,  &
+              210.d0,240.d0,270.d0,300.d0,330.d0,360.d0/
 !*******INTERNAL FLAG*********
     ! HyS
     !integer :: iprtspr
@@ -376,9 +376,9 @@ program ssssss
 !***********************************************************************
 !                             return to 6s
 !***********************************************************************
-    data wldisc /0.350,0.400,0.412,0.443,0.470,0.488,0.515,0.550,  &
-                 0.590,0.633,0.670,0.694,0.760,0.860,1.240,1.536,  &
-                 1.650,1.950,2.250,3.750/
+    data wldisc /0.350d0,0.400d0,0.412d0,0.443d0,0.470d0,0.488d0,0.515d0,0.550d0,  &
+                 0.590d0,0.633d0,0.670d0,0.694d0,0.760d0,0.860d0,1.240d0,1.536d0,  &
+                 1.650d0,1.950d0,2.250d0,3.750d0/
 
 
     data etiq1/                                                   &
@@ -506,13 +506,13 @@ program ssssss
 !***********************************************************************
     pi=acos(-1.d0)
     pi2=2*pi
-    accu2=1.E-03
-    accu3=1.E-07
+    accu2=1.d-03
+    accu3=1.d-07
     do k=1,13
-     angphi(k)=angphi(k)*pi/180.
+     angphi(k)=angphi(k)*pi/180.d0
     enddo
     do k=1,10
-     angmu(k)=cos(angmu(k)*pi/180.)
+     angmu(k)=cos(angmu(k)*pi/180.d0)
     enddo
     call gauss(-1.d0,1.d0,anglem,weightm,mu2)
     call gauss(0.d0,pi2,rp,gp,np)
@@ -527,21 +527,21 @@ program ssssss
        rm(mu-j)=anglem(k)
        gb(mu-j)=weightm(k)
     enddo
-      gb(-mu)=0.
-      gb(0)=0.
-      gb(mu)=0.
+      gb(-mu)=0.d0
+      gb(0)=0.d0
+      gb(mu)=0.d0
 
 !***********************************************************************
 !                             return to 6s
 !***********************************************************************
 ! constantes values
-      sigma=0.056032
-      delta=0.0279
+      sigma=0.056032d0
+      delta=0.0279d0
 !CC     pinst=0.02
 !CC     ksiinst=0.
-      xacc=1.e-06
+      xacc=1.d-06
       iread=5
-      step=0.0025
+      step=0.0025d0
       do l=1,20
        wldis(l)=wldisc(l)
      enddo
@@ -635,7 +635,7 @@ program ssssss
 
       if (igeom.lt.0) then
         if (igeom.lt.-10) then
-          igmax=int(abs(igeom/10))
+          igmax=int(abs(igeom/10.d0))
           igeom=igeom+igmax*10
         endif
         ilut=0
@@ -688,17 +688,17 @@ program ssssss
 !                                                                      c
 !**********************************************************************c
       phi=abs(phiv-phi0)
-      phirad=(phi0-phiv)*pi/180.
-      if (phirad.lt.0.) phirad=phirad+2.*pi
-      if (phirad.gt.(2.*pi)) phirad=phirad-2.*pi
-      xmus=cos(asol*pi/180.)
-      xmuv=cos(avis*pi/180.)
+      phirad=(phi0-phiv)*pi/180.d0
+      if (phirad.lt.0.d0) phirad=phirad+2.d0*pi
+      if (phirad.gt.(2.d0*pi)) phirad=phirad-2.d0*pi
+      xmus=cos(asol*pi/180.d0)
+      xmuv=cos(avis*pi/180.d0)
       xmup=cos(phirad)
-      xmud=-xmus*xmuv-sqrt(1.-xmus*xmus)*sqrt(1.-xmuv*xmuv)*xmup
+      xmud=-xmus*xmuv-sqrt(1.d0-xmus*xmus)*sqrt(1.d0-xmuv*xmuv)*xmup
 ! test vermote bug
-      if (xmud.gt.1.) xmud=1.
-      if (xmud.lt.-1.) xmud=-1.
-      adif=acos(xmud)*180./pi
+      if (xmud.gt.1.d0) xmud=1.d0
+      if (xmud.lt.-1.d0) xmud=-1.d0
+      adif=acos(xmud)*180.d0/pi
 
 !**********************************************************************c
 !       idatm      atmospheric model                                   c
@@ -732,8 +732,8 @@ program ssssss
 !                 profil is taken from us62                            c
 !                                                                      c
 !**********************************************************************c
-      uw=0.
-      uo3=0.
+      uw=0.d0
+      uo3=0.d0
 
       read(iread,*) idatm
 
@@ -865,26 +865,26 @@ program ssssss
 !                    -> results will be saved into Urban_Indust.mie    c
 !                                                                      c
 !**********************************************************************c
-      rmin=0.
-      rmax=0.
+      rmin=0.d0
+      rmax=0.d0
       icp=1
       do i=1,4
-       x1(i)=0.0
-       x2(i)=0.0
-       x3(i)=0.0
+       x1(i)=0.d0
+       x2(i)=0.d0
+       x3(i)=0.d0
        do l=1,20
-        rn(l,i)=0.0
-        ri(l,i)=0.0
+        rn(l,i)=0.d0
+        ri(l,i)=0.d0
        enddo
       enddo
       do i=1,50
-       rsunph(i)=0.
-       nrsunph(i)=0.
+       rsunph(i)=0.d0
+       nrsunph(i)=0.d0
       enddo
-      cij(1)=1.00
+      cij(1)=1.d0
 
-      taer=0.
-      taer55=0.
+      taer=0.d0
+      taer55=0.d0
       iaer_prof=0
 
       read(iread,*) iaer
@@ -892,14 +892,14 @@ program ssssss
 !  the user-defined aerosol profile
       if (iaer.lt.0) then
 
-      total_height=0.0
+      total_height=0.d0
       iaer_prof=1
       num_z=0
       do i=0,50
-      alt_z(i)=0.0
-      taer55_z(i)=0.0
-      taer_z(i)=0.0
-      height_z(i)=0.0
+      alt_z(i)=0.d0
+      taer55_z(i)=0.d0
+      taer_z(i)=0.d0
+      height_z(i)=0.d0
       enddo
 
       read(5,*) num_z
@@ -921,20 +921,20 @@ program ssssss
 
       goto(49,40,41,42,49,49,49,49,43,44,45,46,47),iaer+1
 
-   40 c(1)=0.70
-      c(2)=0.29
-      c(3)=0.00
-      c(4)=0.01
+   40 c(1)=0.70d0
+      c(2)=0.29d0
+      c(3)=0.00d0
+      c(4)=0.01d0
       go to 49
-   41 c(1)=0.00
-      c(2)=0.05
-      c(3)=0.95
-      c(4)=0.00
+   41 c(1)=0.00d0
+      c(2)=0.05d0
+      c(3)=0.95d0
+      c(4)=0.00d0
       go to 49
-   42 c(1)=0.17
-      c(2)=0.61
-      c(3)=0.00
-      c(4)=0.22
+   42 c(1)=0.17d0
+      c(2)=0.61d0
+      c(3)=0.00d0
+      c(4)=0.22d0
       go to 49
    43 read(iread,*) rmin,rmax,icp
       do i=1,icp
@@ -962,7 +962,7 @@ program ssssss
 !       nrsunph(i)=nrsunph(i)/(rsunph(i)**4.)/(4*3.1415/3)
       enddo
       rmin=rsunph(1)
-      rmax=rsunph(irsunph)+1e-07
+      rmax=rsunph(irsunph)+1d-07
       read(5,*)(rn(l,1),l=1,20)
       read(5,*)(ri(l,1),l=1,20)
       go to 49
@@ -1008,7 +1008,7 @@ program ssssss
       if(v) 71,10,11
 
    10 read(iread,*) taer55
-      v=exp(-log(taer55/2.7628)/0.79902)
+      v=exp(-log(taer55/2.7628d0)/0.79902d0)
       goto 71
    11 call oda550(iaer,v,taer55)
 
@@ -1064,26 +1064,26 @@ program ssssss
         read(iread,*) xpp
 
         xpp=-xpp
-        if (xpp.le.0.0) then
+        if (xpp.le.0.d0) then
 !         ground measurement option
-          palt=0.
+          palt=0.d0
           pps=p(1)
           idatmp=0
-          taer55p=0.
-          puw=0.
-          puoz=0.
+          taer55p=0.d0
+          puw=0.d0
+          puoz=0.d0
         else
-          if (xpp.ge.100.) then
+          if (xpp.ge.100.d0) then
 !           satellite case of equivalent
-            palt=1000.
-            pps=0.
+            palt=1000.d0
+            pps=0.d0
             taer55p=taer55
-            ftray=1.
+            ftray=1.d0
             idatmp=4
           else
 !         "real(8)" plane case
             read(iread,*) puw,puo3
-            if (puw.lt.0.) then
+            if (puw.lt.0.d0) then
               call presplane(puw,puo3,xpp,ftray)
               idatmp=2
               if (idatm.eq.8) then
@@ -1103,16 +1103,16 @@ program ssssss
             read(iread,*) taer55p
             if ((taer55p.lt.0.).or.((taer55-taer55p).lt.accu2)) then
 ! a scale heigh of 2km is assumed in case no value is given for taer55p
-              taer55p=taer55*(1.-exp(-palt/2.))
+              taer55p=taer55*(1.d0-exp(-palt/2.d0))
             else
 ! compute effective scale heigh
-              sham=exp(-palt/4.)
-              sha=1.-(taer55p/taer55)
+              sham=exp(-palt/4.d0)
+              sha=1.d0-(taer55p/taer55)
               if (sha.ge.sham) then
-                taer55p=taer55*(1.-exp(-palt/4.))
+                taer55p=taer55*(1.d0-exp(-palt/4.d0))
               else
                 sha=-palt/log(sha)
-                taer55p=taer55*(1.-exp(-palt/sha))
+                taer55p=taer55*(1.d0-exp(-palt/sha))
               endif
             endif
          endif
@@ -1340,7 +1340,7 @@ program ssssss
 !  note: wl has to be in micrometer                                    c
 !**********************************************************************c
       do l=iinf,isup
-       s(l)=1.
+       s(l)=1.d0
       enddo
 
       read(iread,*) iwave
@@ -1416,10 +1416,10 @@ program ssssss
             163,163,163,163,163,163,163,163,163,163,163,    &
             164,164,164),iwave
   110 read(iread,*) wlinf,wlsup
-      iinf=int((wlinf-.25)/0.0025+1.5)
-      isup=int((wlsup-.25)/0.0025+1.5)
+      iinf=int((wlinf-.25d0)/0.0025d0+1.5d0)
+      isup=int((wlsup-.25d0)/0.0025d0+1.5d0)
       do ik=iinf,isup
-       s(ik)=0.
+       s(ik)=0.d0
       enddo
       read(iread,*) (s(i),i=iinf,isup)
       goto 20
@@ -1472,11 +1472,11 @@ program ssssss
   164 call dmc(iwave-196)
       goto 19
 
-   19 iinf=int((wlinf-.25)/0.0025+1.5)
-      isup=int((wlsup-.25)/0.0025+1.5)
+   19 iinf=int((wlinf-.25d0)/0.0025d0+1.5d0)
+      isup=int((wlsup-.25d0)/0.0025d0+1.5d0)
       if (iprtspr.eq.1) then
          do i=iinf,isup
-            write(6,*) "spres ",(i-1)*0.0025+0.25,s(i)
+            write(6,*) "spres ",(i-1)*0.0025d0+0.25d0,s(i)
          enddo
       endif
    20 continue
@@ -1490,53 +1490,53 @@ program ssssss
       do i=1,mu
       nfilut(i)=0
       do j=1,61!41, HyS
-      rolut(i,j)=0.
-      rolutq(i,j)=0.
-      rolutu(i,j)=0.
-      filut(i,j)=0.
-      roluti(i,j)=0.
-      rolutiq(i,j)=0.
-      rolutiu(i,j)=0.
+      rolut(i,j)=0.d0
+      rolutq(i,j)=0.d0
+      rolutu(i,j)=0.d0
+      filut(i,j)=0.d0
+      roluti(i,j)=0.d0
+      rolutiq(i,j)=0.d0
+      rolutiu(i,j)=0.d0
       enddo
       enddo
-      xmus=cos(asol*pi/180.)
-      its=acos(xmus)*180.0/pi
+      xmus=cos(asol*pi/180.d0)
+      its=acos(xmus)*180.d0/pi
 ! Case standart LUT
       if (ilut.eq.1) then
        do i=1,mu-1
          lutmuv=rm(i)
-         luttv=acos(lutmuv)*180./pi
-         iscama=(180-abs(luttv-its))
-         iscami=(180-(luttv+its))
-         nbisca=int(0.01+(iscama-iscami)/4.0)+1
+         luttv=acos(lutmuv)*180.d0/pi
+         iscama=(180.d0-abs(luttv-its))
+         iscami=(180.d0-(luttv+its))
+         nbisca=int(0.01d0+(iscama-iscami)/4.d0)+1
          nfilut(i)=nbisca
-         filut(i,1)=0.0
-         filut(i,nbisca)=180.0
+         filut(i,1)=0.d0
+         filut(i,nbisca)=180.d0
          scaa=iscama
          do j=2,nfilut(i)-1
-          scaa=scaa-4.0
-          cscaa=cos(scaa*pi/180.)
-          cfi=-(cscaa+xmus*lutmuv)/(sqrt(1-xmus*xmus)   &
-                *sqrt(1.-lutmuv*lutmuv))
-          filut(i,j)=acos(cfi)*180.0/pi
+          scaa=scaa-4.d0
+          cscaa=cos(scaa*pi/180.d0)
+          cfi=-(cscaa+xmus*lutmuv)/(sqrt(1.d0-xmus*xmus)   &
+                *sqrt(1.d0-lutmuv*lutmuv))
+          filut(i,j)=acos(cfi)*180.d0/pi
          enddo
       enddo
          i=mu
-         lutmuv=cos(avis*pi/180.)
-         luttv=acos(lutmuv)*180./pi
-         iscama=(180-abs(luttv-its))
-         iscami=(180-(luttv+its))
+         lutmuv=cos(avis*pi/180.d0)
+         luttv=acos(lutmuv)*180.d0/pi
+         iscama=(180.d0-abs(luttv-its))
+         iscami=(180.d0-(luttv+its))
          nbisca=int((iscama-iscami)/4)+1
          nfilut(i)=nbisca
-         filut(i,1)=0.0
-         filut(i,nbisca)=180.0
+         filut(i,1)=0.d0
+         filut(i,nbisca)=180.d0
          scaa=iscama
          do j=2,nfilut(i)-1
-          scaa=scaa-4.0
-          cscaa=cos(scaa*pi/180.)
-          cfi=-(cscaa+xmus*lutmuv)/(sqrt(1-xmus*xmus)   &
-                *sqrt(1.-lutmuv*lutmuv))
-          filut(i,j)=acos(cfi)*180.0/pi
+          scaa=scaa-4.d0
+          cscaa=cos(scaa*pi/180.d0)
+          cfi=-(cscaa+xmus*lutmuv)/(sqrt(1.d0-xmus*xmus)   &
+                *sqrt(1.d0-lutmuv*lutmuv))
+          filut(i,j)=acos(cfi)*180.d0/pi
          enddo
         endif
 ! END Case standart LUT
@@ -1547,7 +1547,7 @@ program ssssss
          nbisca=2
          nfilut(i)=nbisca
          filut(i,1)=(phi0-phiv)
-         filut(i,nbisca)=(phi0-phiv)+180.0
+         filut(i,nbisca)=(phi0-phiv)+180.d0
       enddo
          i=mu
          nbisca=1
@@ -1558,11 +1558,11 @@ program ssssss
 !CCC Check initialization  (debug)
        do i=1,mu
          lutmuv=rm(i)
-         luttv=acos(lutmuv)*180./pi
+         luttv=acos(lutmuv)*180.d0/pi
         do j=1,nfilut(i)
-       cscaa=-xmus*lutmuv-cos(filut(i,j)*pi/180.)*sqrt(1.-xmus*xmus)  &
-        *sqrt(1.-lutmuv*lutmuv)
-       scaa=acos(cscaa)*180./pi
+       cscaa=-xmus*lutmuv-cos(filut(i,j)*pi/180.d0)*sqrt(1.-xmus*xmus)  &
+        *sqrt(1.d0-lutmuv*lutmuv)
+       scaa=acos(cscaa)*180.d0/pi
       write(6,*) its,luttv,filut(i,j),scaa
       enddo
       enddo
@@ -1617,8 +1617,8 @@ program ssssss
           tamoyp=tamoy
       endif
       if (idatmp.eq.0) then
-         trmoyp=0.
-         tamoyp=0.
+         trmoyp=0.d0
+         tamoyp=0.d0
       endif
 
 
@@ -1936,8 +1936,8 @@ program ssssss
       fr=0.d0
       rad=0.d0
       do ik=iinf,isup
-        rocl(ik)=0.
-        roel(ik)=0.
+        rocl(ik)=0.d0
+        roel(ik)=0.d0
       enddo
 
 !**********************************************************************c
@@ -1974,7 +1974,7 @@ program ssssss
       rm(mu)=xmuv
       rm(0)=xmus
       call brdfgrid(mu,np,rm,rp,brdfdats,angmu,angphi,brdfints)
-      rm(-mu)=2.*pi-phirad
+      rm(-mu)=2.d0*pi-phirad
       rm(mu)=xmus
       rm(0)=xmuv
       call brdfgrid(mu,np,rm,rp,brdfdatv,angmu,angphi,brdfintv)
@@ -2001,7 +2001,7 @@ program ssssss
         rm(mu)=xmuv
         rm(0)=xmus
         call hapkbrdf(par1,par2,par3,par4,mu,np,rm,rp,brdfints)
-        rm(-mu)=2.*pi-phirad
+        rm(-mu)=2.d0*pi-phirad
         rm(mu)=xmus
         rm(0)=xmuv
         call hapkbrdf(par1,par2,par3,par4,mu,np,rm,rp,brdfintv)
@@ -2055,7 +2055,7 @@ program ssssss
         rm(mu)=xmuv
         rm(0)=xmus
         call roujbrdf(par1,par2,par3,mu,np,rm,rp,brdfints)
-        rm(-mu)=2.*pi-phirad
+        rm(-mu)=2.d0*pi-phirad
         rm(mu)=xmus
         rm(0)=xmuv
         call roujbrdf(par1,par2,par3,mu,np,rm,rp,brdfintv)
@@ -2080,7 +2080,7 @@ program ssssss
         rm(mu)=xmuv
         rm(0)=xmus
         call waltbrdf(par1,par2,par3,par4,mu,np,rm,rp,brdfints)
-        rm(-mu)=2.*pi-phirad
+        rm(-mu)=2.d0*pi-phirad
         rm(mu)=xmus
         rm(0)=xmuv
         call waltbrdf(par1,par2,par3,par4,mu,np,rm,rp,brdfintv)
@@ -2105,7 +2105,7 @@ program ssssss
         rm(mu)=xmuv
         rm(0)=xmus
         call minnbrdf(par1,par2,mu,np,rm,brdfints)
-        rm(-mu)=2.*pi-phirad
+        rm(-mu)=2.d0*pi-phirad
         rm(mu)=xmus
         rm(0)=xmuv
         call minnbrdf(par1,par2,mu,np,rm,brdfintv)
@@ -2118,14 +2118,14 @@ program ssssss
 !**********************************************************************c
       if(ibrdf.eq.6) then
         read(iread,*) pws,phi_wind,xsal,pcl
-        if (xsal.lt.0.001)xsal=34.3
+        if (xsal.lt.0.001d0)xsal=34.3d0
         paw=phi0-phi_wind
 
         do l=iinf,isup
            srm(-1)=phirad
            srm(1)=xmuv
            srm(0)=xmus
-           wl=.25+(l-1)*step
+           wl=.25d0+(l-1)*step
            call oceabrdf(pws,paw,xsal,pcl,wl,rfoam,rwat,rglit,  &
                1,1,srm,srp,sbrdftmp)
 
@@ -2140,7 +2140,7 @@ program ssssss
         rm(0)=xmus
         call oceabrdf(pws,paw,xsal,pcl,wlmoy,rfoam,rwat,rglit,  &
             mu,np,rm,rp,brdfints)
-        rm(-mu)=2.*pi-phirad
+        rm(-mu)=2.d0*pi-phirad
         rm(mu)=xmus
         rm(0)=xmuv
         call oceabrdf(pws,paw,xsal,pcl,wlmoy,rfoam,rwat,rglit,  &
@@ -2169,7 +2169,7 @@ program ssssss
         rm(mu)=xmuv
         rm(0)=xmus
         call iapibrdf(pild,pxlt,prl,ptl,prs,pihs,pc,mu,np,rm,rp,brdfints)
-        rm(-mu)=2.*pi-phirad
+        rm(-mu)=2.d0*pi-phirad
         rm(mu)=xmus
         rm(0)=xmuv
         call iapibrdf(pild,pxlt,prl,ptl,prs,pihs,pc,mu,np,rm,rp,brdfintv)
@@ -2195,7 +2195,7 @@ program ssssss
         rm(mu)=xmuv
         rm(0)=xmus
         call rahmbrdf(par1,par2,par3,mu,np,rm,rp,brdfints)
-        rm(-mu)=2.*pi-phirad
+        rm(-mu)=2.d0*pi-phirad
         rm(mu)=xmus
         rm(0)=xmuv
         call rahmbrdf(par1,par2,par3,mu,np,rm,rp,brdfintv)
@@ -2220,7 +2220,7 @@ program ssssss
            srm(-1)=phirad
            srm(1)=xmuv
            srm(0)=xmus
-           wl=.25+(l-1)*step
+           wl=.25d0+(l-1)*step
            call akbrdf(eei,thmi,uli,sli,rsl1i,wl,rnci,cabi,cwi,vaii  &
             ,1,1,srm,srp,sbrdftmp)
            sbrdf(l)=sbrdftmp(1,1)
@@ -2231,7 +2231,7 @@ program ssssss
          rm(0)=xmus
          call akbrdf(eei,thmi,uli,sli,rsl1i,wlmoy,rnci,cabi,cwi,vaii &
                   ,mu,np,rm,rp,brdfints)
-         rm(-mu)=2.*pi-phirad
+         rm(-mu)=2.d0*pi-phirad
          rm(mu)=xmus
          rm(0)=xmuv
          call akbrdf(eei,thmi,uli,sli,rsl1i,wlmoy,rnci,cabi,cwi,vaii &
@@ -2260,7 +2260,7 @@ program ssssss
          rm(0)=xmus
          call modisbrdf(p1,p2,p3,mu,np,rm,rp,brdfints)
 
-         rm(-mu)=2.*pi-phirad
+         rm(-mu)=2.d0*pi-phirad
          rm(mu)=xmus
          rm(0)=xmuv
          call modisbrdf(p1,p2,p3,mu,np,rm,rp,brdfintv)
@@ -2294,7 +2294,7 @@ program ssssss
          rm(mu)=xmuv
          rm(0)=xmus
          call rlmaignanbrdf(p1,p2,p3,mu,np,rm,rp,brdfints)
-         rm(-mu)=2.*pi-phirad
+         rm(-mu)=2.d0*pi-phirad
          rm(mu)=xmus
          rm(0)=xmuv
          call rlmaignanbrdf(p1,p2,p3,mu,np,rm,rp,brdfintv)
@@ -2342,7 +2342,7 @@ program ssssss
           srm(-1) = phirad
           srm(1) = xmuv
           srm(0) = xmus
-          wl = 0.25 + (l-1)*step
+          wl = 0.25d0 + (l-1)*step
           call acrmbrdf(lai2,sl2,clmp2,szz,eln2,thm2,nratio2,slw2,lmod2,&
             ncomp2,ccomp2,N2,dcell2,asp2, &
             lai1,sl1,clmp1,eln1,thm1,nratio1,slw1,lmod1, &
@@ -2362,7 +2362,7 @@ program ssssss
             s1,s2,s3,s4, &
             wlmoy,mu,np,rm,rp,brdfints)
 
-        rm(-mu)=2.*pi-phirad
+        rm(-mu)=2.d0*pi-phirad
         rm(mu)=xmus
         rm(0)=xmuv
         call acrmbrdf(lai2,sl2,clmp2,szz,eln2,thm2,nratio2,slw2,lmod2,&
@@ -2403,7 +2403,8 @@ program ssssss
           srm(-1) = phirad
           srm(1) = xmuv
           srm(0) = xmus
-          wl = 0.25 + (l-1)*step
+          wl = 0.25d0 + (l-1)*step
+
           call prosailbrdf(TypeLidf,LiDFa,LIDFb,Cab,Car,Cbrown, &
             Cw,Cm,N0,lai,hspot,psoil, &
             wl,1,1,srm,srp,sbrdftmp)
@@ -2417,7 +2418,7 @@ program ssssss
             Cw,Cm,N0,lai,hspot,psoil, &
             wlmoy,mu,np,rm,rp,brdfints)
 
-        rm(-mu)=2.*pi-phirad
+        rm(-mu)=2.d0*pi-phirad
         rm(mu)=xmus
         rm(0)=xmuv
         call prosailbrdf(TypeLidf,LiDFa,LIDFb,Cab,Car,Cbrown, &
@@ -2459,7 +2460,7 @@ program ssssss
         rm(0) = xmus
         call artbrdf(ART_dia,ART_M,wlmoy,mu,np,rm,rp,brdfints)
 
-        rm(-mu)=2.*pi-phirad
+        rm(-mu)=2.d0*pi-phirad
         rm(mu)=xmus
         rm(0)=xmuv
         call artbrdf(ART_dia,ART_M,wlmoy,mu,np,rm,rp,brdfintv)
@@ -2484,7 +2485,7 @@ program ssssss
       rm(-mu)=-xmuv
       rm(mu)=xmuv
       rm(0)=-xmus
-      spalt=1000.
+      spalt=1000.d0
 !      write(6,*) iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,spalt, &
 !                     phirad,nt,mu,np,rm,gb,rp, &
 !                           xlmus,xlphim,nfi,rolut
@@ -2505,7 +2506,7 @@ program ssssss
       rm(-mu)=-xmuv
       rm(mu)=xmuv
       rm(0)=-xmus
-      spalt=1000.
+      spalt=1000.d0
       call ossurf(iaer_prof,tamoyp,trmoyp,pizmoy,tamoyp,trmoyp,spalt, &
            phirad,nt,mu,np,rm,gb,rp,rosur,wfisur,fisur, &
            xlsurf,xlphim,nfi,rolutsurf)
@@ -2527,7 +2528,7 @@ program ssssss
                  nt,mu,rm,gb,lxtrans)
         lddiftt=lxtrans(1)-exp(-(tamoyp+trmoyp)/xmus)
         lddirtt=exp(-(tamoyp+trmoyp)/xmus)
-        lsphalbt=lxtrans(0)*2.
+        lsphalbt=lxtrans(0)*2.d0
 
 !       write(6,*) "sphalbt ddiftt ddirtt udiftt udirtt", &
 !         lsphalbt,lddiftt,lddirtt,ludiftt,ludirtt,xmus,xmuv
@@ -2540,12 +2541,12 @@ program ssssss
 ! hemisphere and gives the averaged directional reflectance after the  c
 ! normalization. the resulting reflectance is named robar              c
 !**********************************************************************c
-      robar1=0.
-      xnorm1=0.
+      robar1=0.d0
+      xnorm1=0.d0
 !      write(6,*) xlmus
       do j=1,np
-        rob=0.
-        xnor=0.
+        rob=0.d0
+        xnor=0.d0
         do k=1,mu-1
           rdown=xlmus(-k,j)
           rdir=brdfintv(k,j)
@@ -2562,11 +2563,11 @@ program ssssss
 ! hemisphere and gives the averaged directional reflectance after the  c
 ! normalization. the resulting reflectance is named robarp             c
 !**********************************************************************c
-      robar2=0.
-      xnorm2=0.
+      robar2=0.d0
+      xnorm2=0.d0
       do j=1,np
-        rob=0.
-        xnor=0.
+        rob=0.d0
+        xnor=0.d0
         do k=1,mu-1
           rdown=xlmuv(-k,j)
           rdir=brdfints(k,j)
@@ -2616,9 +2617,9 @@ program ssssss
         if (idatmp.ne.0) then
           robarp(l)=robar2/xnorm2
         else
-          robarp(l)=0.
-          xnorm2=1.
-          robar2=0.
+          robarp(l)=0.d0
+          xnorm2=1.d0
+          robar2=0.d0
         endif
         robard(l)=albbrdf
         robard(l)=rbard
@@ -2634,8 +2635,8 @@ program ssssss
       if(igroun) 29,32,33
 
   29  read(iread,*) nwlinf,nwlsup
-      niinf=int((nwlinf-.25)/0.0025+1.5)
-      nisup=int((nwlsup-.25)/0.0025+1.5)
+      niinf=int((nwlinf-.25d0)/0.0025d0+1.5d0)
+      nisup=int((nwlsup-.25d0)/0.0025d0+1.5d0)
       read(iread,*) (rocl(i),i=niinf,nisup)
       goto 36
 
@@ -2760,8 +2761,8 @@ program ssssss
 
  37    if ((irop.lt.1).or.(irop.gt.3)) then
        if (idirec.eq.0) then
-       ropq=0.000
-       ropu=0.000
+       ropq=0.d0
+       ropu=0.d0
        else
        if (ibrdf.eq.6) then
             irop=3
@@ -2774,7 +2775,7 @@ program ssssss
        if (ibrdf.eq.9) then
           irop=2
           pveg = uli
-        if (pveg.gt.1.) pveg=1
+        if (pveg.gt.1.d0) pveg=1
         call polnad(asol,avis,phi,pveg,ropq,ropu)
         endif
        endif
@@ -2923,14 +2924,14 @@ program ssssss
 
 ! --- ground reflectance (type and spectral variation) ----
       if(idirec.eq.0) then
-        rocave=0.
-        roeave=0.
-        seb=0.
+        rocave=0.d0
+        roeave=0.d0
+        seb=0.d0
 
         do i=iinf,isup
           sbor=s(i)
-          if(i.eq.iinf.or.i.eq.isup) sbor=sbor*0.5
-          wl=.25+(i-1)*step
+          if(i.eq.iinf.or.i.eq.isup) sbor=sbor*0.5d0
+          wl=.25d0+(i-1)*step
           call solirr(wl,swl)
           swl=swl*dsol
           rocave=rocave+rocl(i)*sbor*swl*step
@@ -2968,16 +2969,16 @@ program ssssss
       else
         write(iwr, 168)
         if(idirec.eq.1) then
-        rocave=0.
-        rfoamave=0.
-        rwatave=0.
-        rglitave=0.
-        seb=0.
+        rocave=0.d0
+        rfoamave=0.d0
+        rwatave=0.d0
+        rglitave=0.d0
+        seb=0.d0
 
         do i=iinf,isup
           sbor=s(i)
-          if(i.eq.iinf.or.i.eq.isup) sbor=sbor*0.5
-          wl=.25+(i-1)*step
+          if(i.eq.iinf.or.i.eq.isup) sbor=sbor*0.5d0
+          wl=.25d0+(i-1)*step
           call solirr(wl,swl)
           swl=swl*dsol
           rocave=rocave+rocl(i)*sbor*swl*step
@@ -3102,89 +3103,89 @@ program ssssss
 ! Start Update Look up table
       do i=1,mu
         do j=1,61
-        roluti(i,j)=0.0
-        rolutiq(i,j)=0.0
-        rolutiu(i,j)=0.0
+        roluti(i,j)=0.d0
+        rolutiq(i,j)=0.d0
+        rolutiu(i,j)=0.d0
         enddo
       enddo
 ! End Update Look up table
-      sb=0.
-      seb=0.
-      refet=0.
-      refet1=0.
-      refet2=0.
-      refet3=0.
-      rpfet=0.
-      rpfet1=0.
-      rpfet2=0.
-      rpfet3=0.
-      alumet=0.
-      plumet=0.
-      tgasm=0.
-      rog=0.
-      dgasm=0.
-      ugasm=0.
-      sdwava=0.
-      sdozon=0.
-      sddica=0.
-      sdoxyg=0.
-      sdniox=0.
-      sdmoca=0.
-      sdmeth=0.
-      suwava=0.
-      suozon=0.
-      sudica=0.
-      suoxyg=0.
-      suniox=0.
-      sumoca=0.
-      sumeth=0.
-      stwava=0.
-      stozon=0.
-      stdica=0.
-      stoxyg=0.
-      stniox=0.
-      stmoca=0.
-      stmeth=0.
-      sodray=0.
-      sodrayp=0.
-      sodaer=0.
-      sodaerp=0.
-      sodtot=0.
-      sodtotp=0.
-      fophsr=0.
-      fophsa=0.
-      foqhsr=0.
-      foqhsa=0.
-      fouhsr=0.
-      fouhsa=0.
-      sroray=0.
-      sroaer=0.
-      srotot=0.
-      srpray=0.
-      srpaer=0.
-      srptot=0.
-      srqray=0.
-      srqaer=0.
-      srqtot=0.
-      sruray=0.
-      sruaer=0.
-      srutot=0.
-      ssdaer=0.
-      sdtotr=0.
-      sdtota=0.
-      sdtott=0.
-      sutotr=0.
-      sutota=0.
-      sutott=0.
-      sasr=0.
-      sasa=0.
-      sast=0.
+      sb=0.d0
+      seb=0.d0
+      refet=0.d0
+      refet1=0.d0
+      refet2=0.d0
+      refet3=0.d0
+      rpfet=0.d0
+      rpfet1=0.d0
+      rpfet2=0.d0
+      rpfet3=0.d0
+      alumet=0.d0
+      plumet=0.d0
+      tgasm=0.d0
+      rog=0.d0
+      dgasm=0.d0
+      ugasm=0.d0
+      sdwava=0.d0
+      sdozon=0.d0
+      sddica=0.d0
+      sdoxyg=0.d0
+      sdniox=0.d0
+      sdmoca=0.d0
+      sdmeth=0.d0
+      suwava=0.d0
+      suozon=0.d0
+      sudica=0.d0
+      suoxyg=0.d0
+      suniox=0.d0
+      sumoca=0.d0
+      sumeth=0.d0
+      stwava=0.d0
+      stozon=0.d0
+      stdica=0.d0
+      stoxyg=0.d0
+      stniox=0.d0
+      stmoca=0.d0
+      stmeth=0.d0
+      sodray=0.d0
+      sodrayp=0.d0
+      sodaer=0.d0
+      sodaerp=0.d0
+      sodtot=0.d0
+      sodtotp=0.d0
+      fophsr=0.d0
+      fophsa=0.d0
+      foqhsr=0.d0
+      foqhsa=0.d0
+      fouhsr=0.d0
+      fouhsa=0.d0
+      sroray=0.d0
+      sroaer=0.d0
+      srotot=0.d0
+      srpray=0.d0
+      srpaer=0.d0
+      srptot=0.d0
+      srqray=0.d0
+      srqaer=0.d0
+      srqtot=0.d0
+      sruray=0.d0
+      sruaer=0.d0
+      srutot=0.d0
+      ssdaer=0.d0
+      sdtotr=0.d0
+      sdtota=0.d0
+      sdtott=0.d0
+      sutotr=0.d0
+      sutota=0.d0
+      sutott=0.d0
+      sasr=0.d0
+      sasa=0.d0
+      sast=0.d0
       do i=1,2
         do j=1,3
-          ani(i,j)=0.
-          aini(i,j)=0.
-          anr(i,j)=0.
-          ainr(i,j)=0.
+          ani(i,j)=0.d0
+          aini(i,j)=0.d0
+          anr(i,j)=0.d0
+          ainr(i,j)=0.d0
         enddo
       enddo
 
@@ -3192,14 +3193,14 @@ program ssssss
         if (iwave.eq.-2) write(iwr,1500)
         do 51 l=iinf,isup
         sbor=s(l)
-        if(l.eq.iinf.or.l.eq.isup) sbor=sbor*0.5
-        if(iwave.eq.-1) sbor=1.0/step
+        if(l.eq.iinf.or.l.eq.isup) sbor=sbor*0.5d0
+        if(iwave.eq.-1) sbor=1.d0/step
         roc=rocl(l)
         roe=roel(l)
-        wl=.25+(l-1)*step
+        wl=.25d0+(l-1)*step
 
-        call abstra(idatm,wl,xmus,xmuv,uw/2.,uo3,uwus,uo3us,    &
-                   idatmp,puw/2.,puo3,puwus,puo3us,             &
+        call abstra(idatm,wl,xmus,xmuv,uw/2.d0,uo3,uwus,uo3us,    &
+                   idatmp,puw/2.d0,puo3,puwus,puo3us,             &
             dtwava,dtozon,dtdica,dtoxyg,dtniox,dtmeth,dtmoca,   &
             utwava,utozon,utdica,utoxyg,utniox,utmeth,utmoca,   &
             attwava,ttozon,ttdica,ttoxyg,ttniox,ttmeth,ttmoca )
@@ -3208,24 +3209,24 @@ program ssssss
             dtwava,dtozon,dtdica,dtoxyg,dtniox,dtmeth,dtmoca,   &
             utwava,utozon,utdica,utoxyg,utniox,utmeth,utmoca,   &
             ttwava,ttozon,ttdica,ttoxyg,ttniox,ttmeth,ttmoca )
-        if (dtwava.lt.accu3) dtwava=0.
-        if (dtozon.lt.accu3) dtozon=0.
-        if (dtdica.lt.accu3) dtdica=0.
-        if (dtniox.lt.accu3) dtniox=0.
-        if (dtmeth.lt.accu3) dtmeth=0.
-        if (dtmoca.lt.accu3) dtmeth=0.
-        if (utwava.lt.accu3) utwava=0.
-        if (utozon.lt.accu3) utozon=0.
-        if (utdica.lt.accu3) utdica=0.
-        if (utniox.lt.accu3) utniox=0.
-        if (utmeth.lt.accu3) utmeth=0.
-        if (utmoca.lt.accu3) utmeth=0.
-        if (ttwava.lt.accu3) ttwava=0.
-        if (ttozon.lt.accu3) ttozon=0.
-        if (ttdica.lt.accu3) ttdica=0.
-        if (ttniox.lt.accu3) ttniox=0.
-        if (ttmeth.lt.accu3) ttmeth=0.
-        if (ttmoca.lt.accu3) ttmeth=0.
+        if (dtwava.lt.accu3) dtwava=0.d0
+        if (dtozon.lt.accu3) dtozon=0.d0
+        if (dtdica.lt.accu3) dtdica=0.d0
+        if (dtniox.lt.accu3) dtniox=0.d0
+        if (dtmeth.lt.accu3) dtmeth=0.d0
+        if (dtmoca.lt.accu3) dtmeth=0.d0
+        if (utwava.lt.accu3) utwava=0.d0
+        if (utozon.lt.accu3) utozon=0.d0
+        if (utdica.lt.accu3) utdica=0.d0
+        if (utniox.lt.accu3) utniox=0.d0
+        if (utmeth.lt.accu3) utmeth=0.d0
+        if (utmoca.lt.accu3) utmeth=0.d0
+        if (ttwava.lt.accu3) ttwava=0.d0
+        if (ttozon.lt.accu3) ttozon=0.d0
+        if (ttdica.lt.accu3) ttdica=0.d0
+        if (ttniox.lt.accu3) ttniox=0.d0
+        if (ttmeth.lt.accu3) ttmeth=0.d0
+        if (ttmoca.lt.accu3) ttmeth=0.d0
 
         call solirr(wl,swl)
         swl=swl*dsol
@@ -3262,13 +3263,13 @@ program ssssss
                 robar(l)*tdifd*tdiru+robarp(l)*tdifu*tdird+            &
                 robard(l)*tdifd*tdifu+                                 &
           (tdifd+tdird)*(tdifu+tdiru)*astot*robard(l)*robard(l)        &
-                /(1.-astot*robard(l))
+                /(1.d0-astot*robard(l))
         avr=robard(l)
         else
           call enviro(edifr,edifa,rad,palt,xmuv,fra,fae,fr)
-          avr=roc*fr+(1.-fr)*roe
-          rsurf=roc*dtott*exp(-(trayp+taerp)/xmuv)/(1.-avr*astot)      &
-             +avr*dtott*(utott-exp(-(trayp+taerp)/xmuv))/(1.-avr*astot)
+          avr=roc*fr+(1.d0-fr)*roe
+          rsurf=roc*dtott*exp(-(trayp+taerp)/xmuv)/(1.d0-avr*astot)      &
+             +avr*dtott*(utott-exp(-(trayp+taerp)/xmuv))/(1.d0-avr*astot)
         endif
         ratm1=(romix-rorayl)*tgtot+rorayl*tgp1
         ratm3=romix*tgp1
@@ -3321,7 +3322,7 @@ program ssssss
           rqatm2=(rqmix-rqrayl)*tgp2+rqrayl*tgp1
           ruatm2=(rumix-rurayl)*tgp2+rurayl*tgp1
 
-          tdirqu=exp(-(trayp+taerp)*(1./xmuv+1./xmus))
+          tdirqu=exp(-(trayp+taerp)*(1.d0/xmuv+1.d0/xmus))
           rqmeas2=rqatm2+ropq*tgtot*tdirqu
           rumeas2=ruatm2+ropu*tgtot*tdirqu
 
@@ -3406,21 +3407,21 @@ program ssssss
 !  ---output at the ground level.
         tdir=exp(-(tray+taer)/xmus)
         tdif=dtott-tdir
-        etn=dtott*dgtot/(1.-avr*astot)
+        etn=dtott*dgtot/(1.d0-avr*astot)
         esn=tdir*dgtot
         es=tdir*dgtot*xmus*swl
         ea0n=tdif*dgtot
         ea0=tdif*dgtot*xmus*swl
-        ee0n=dgtot*avr*astot*dtott/(1.-avr*astot)
-        ee0=xmus*swl*dgtot*avr*astot*dtott/(1.-avr*astot)
+        ee0n=dgtot*avr*astot*dtott/(1.d0-avr*astot)
+        ee0=xmus*swl*dgtot*avr*astot*dtott/(1.d0-avr*astot)
         if (etn.gt.accu3) then
            ani(1,1)=esn/etn
            ani(1,2)=ea0n/etn
            ani(1,3)=ee0n/etn
         else
-           ani(1,1)=0.
-           ani(1,2)=0.
-           ani(1,3)=0.
+           ani(1,1)=0.d0
+           ani(1,2)=0.d0
+           ani(1,3)=0.d0
         endif
         ani(2,1)=es
         ani(2,2)=ea0
@@ -3438,9 +3439,9 @@ program ssssss
         tmdif=utott-tmdir
         xla0n=ratm2
         xla0=xla0n*xmus*swl/pi
-        xltn=roc*dtott*tmdir*tgtot/(1.-avr*astot)
+        xltn=roc*dtott*tmdir*tgtot/(1.d0-avr*astot)
         xlt=xltn*xmus*swl/pi
-        xlen=avr*dtott*tmdif*tgtot/(1.-avr*astot)
+        xlen=avr*dtott*tmdif*tgtot/(1.d0-avr*astot)
         xle=xlen*xmus*swl/pi
         anr(1,1)=xla0n
         anr(1,2)=xlen
@@ -3498,8 +3499,8 @@ program ssssss
       sodrayp=sodrayp/seb
       sodaerp=sodaerp/seb
       sodtotp=sodtotp/seb
-      pizera=0.0
-      pizerr=1.
+      pizera=0.d0
+      pizerr=1.d0
       if(iaer.ne.0) pizera=ssdaer/sodaer/seb
       pizert=(pizerr*sodray+pizera*sodaer)/(sodray+sodaer)
 
@@ -3543,25 +3544,25 @@ program ssssss
         fouhsr=fouhsr/seb
         fouhst=(sodray*fouhsr+sodaer*fouhsa)/(sodray+sodaer)
 !      we define the polarized reflectances
-        srpray=sqrt(srqray**2.+sruray**2.)
-        srpaer=sqrt(srqaer**2.+sruaer**2.)
-        srptot=sqrt(srqtot**2.+srutot**2.)
+        srpray=sqrt(srqray**2.d0+sruray**2.d0)
+        srpaer=sqrt(srqaer**2.d0+sruaer**2.d0)
+        srptot=sqrt(srqtot**2.d0+srutot**2.d0)
 !      we define the primary degrees of polarization
         spdpray=foqhsr/fophsr
         if (iaer.ne.0) then
             spdpaer=foqhsa/fophsa
         else
-            spdpaer=0.0
+            spdpaer=0.d0
         endif
         spdptot=foqhst/fophst
 !      we define the degrees of polarization
-        sdpray=100.*srpray/sroray
+        sdpray=100.d0*srpray/sroray
         if (sroaer.ne.0) then
-            sdpaer=100.*srpaer/sroaer
+            sdpaer=100.d0*srpaer/sroaer
         else
-            sdpaer=0.0
+            sdpaer=0.d0
         endif
-        sdptot=100.*srptot/srotot
+        sdptot=100.d0*srptot/srotot
 !      and we compute the direction of the plane of polarization
         call dirpopol(srqray*xmus,sruray*xmus,sdppray)
         call dirpopol(srqaer*xmus,sruaer*xmus,sdppaer)

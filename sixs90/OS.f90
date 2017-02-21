@@ -56,15 +56,15 @@ subroutine os (iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
 
     nbmu=nquad
     snt=nt
-    hr=8.0
+    hr=8.d0
     ta=tamoy
     tr=trmoy
     trp=trmoy-trmoyp
     tap=tamoy-tamoyp
     piz=pizmoy
     iplane=0
-    accu=1.e-20
-    accu2=1.e-3
+    accu=1.d-20
+    accu2=1.d-3
     mum1=mu-1
 ! if plane observations recompute scale height for aerosol knowing:
 ! the aerosol optical depth as measure from the plane   = tamoyp
@@ -78,14 +78,14 @@ subroutine os (iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
 !                        ntp=nt-1   plane observation selected
 !     it's a mixing rayleigh+aerosol
     if(palt.le.900..and.palt.gt.0.0) then
-        if (tap.gt.1.e-03) then
+        if (tap.gt.1.d-03) then
             ha=-palt/log(tap/ta)
         else
-            ha=2.
+            ha=2.d0
         endif
         ntp=nt-1
     else
-        ha=2.0
+        ha=2.d0
         ntp=nt
     endif
 
@@ -99,11 +99,11 @@ subroutine os (iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
     if((ta.le.accu2).and.(tr.gt.ta)) then
         do j=0,ntp
             h(j)=j*tr/ntp
-            ch(j)=exp(-h(j)/xmus)/2.
-            ydel(j)=1.0
-            xdel(j)=0.0
+            ch(j)=exp(-h(j)/xmus)/2.d0
+            ydel(j)=1.d0
+            xdel(j)=0.d0
             if (j.eq.0) then
-                altc(j)=300.
+                altc(j)=300.d0
             else
                 altc(j)=-log(h(j)/tr)*hr
             endif
@@ -112,11 +112,11 @@ subroutine os (iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
     if((tr.le.accu2).and.(ta.gt.tr)) then
         do j=0,ntp
             h(j)=j*ta/ntp
-            ch(j)=exp(-h(j)/xmus)/2.
-            ydel(j)=0.0
+            ch(j)=exp(-h(j)/xmus)/2.d0
+            ydel(j)=0.d0
             xdel(j)=piz
             if (j.eq.0) then
-                altc(j)=300.
+                altc(j)=300.d0
             else
                 altc(j)=-log(h(j)/ta)*ha
             endif
@@ -124,29 +124,29 @@ subroutine os (iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
     endif
 
     if(tr.gt.accu2.and.ta.gt.accu2.and.iaer_prof.eq.0)then
-        ydel(0)=1.0
-        xdel(0)=0.0
-        h(0)=0.
-        ch(0)=0.5
-        altc(0)=300.
-        zx=300.
+        ydel(0)=1.d0
+        xdel(0)=0.d0
+        h(0)=0.d0
+        ch(0)=0.5d0
+        altc(0)=300.d0
+        zx=300.d0
         iplane=0
         do it=0,ntp
             if(it.ne.0) then
                 yy=h(it-1)
                 dd=ydel(it-1)
             else
-                yy=0.
-                dd=0.
+                yy=0.d0
+                dd=0.d0
             endif
-            ppp2=300.0
-            ppp1=0.0
+            ppp2=300.d0
+            ppp1=0.d0
             itp=it
             call discre(ta,ha,tr,hr,itp,ntp,yy,dd,ppp2,ppp1,zx)
             if(ier) return
             xx=-zx/ha
             if (xx.le.-20) then
-                ca=0.
+                ca=0.d0
             else
                 ca=ta*dexp(xx)
             endif
@@ -154,11 +154,11 @@ subroutine os (iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
             cr=tr*dexp(xx)
             h(it)=cr+ca
             altc(it)=zx
-            ch(it)=exp(-h(it)/xmus)/2.
+            ch(it)=exp(-h(it)/xmus)/2.d0
             cr=cr/hr
             ca=ca/ha
             ratio=cr/(cr+ca)
-            xdel(it)=(1.e+00-ratio)*piz
+            xdel(it)=(1.d+00-ratio)*piz
             ydel(it)=ratio
         enddo
     endif
@@ -176,7 +176,7 @@ subroutine os (iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
                 if (taup.ge.h(i)) iplane=i
         enddo
 ! update the layer from the end to the position to update if necessary
-        th=0.0005
+        th=0.0005d0
         xt1=abs(h(iplane)-taup)
         xt2=abs(h(iplane+1)-taup)
         if ((xt1.gt.th).and.(xt2.gt.th)) then
@@ -199,19 +199,19 @@ subroutine os (iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
             cr=cr/hr
             ca=ca/ha
             ratio=cr/(cr+ca)
-            xdel(iplane)=(1.e+00-ratio)*piz
+            xdel(iplane)=(1.d+00-ratio)*piz
             ydel(iplane)=ratio
             altc(iplane)=palt
-            ch(iplane)=exp(-h(iplane)/xmus)/2.
+            ch(iplane)=exp(-h(iplane)/xmus)/2.d0
         endif
         if ( tr.gt.accu2.and.ta.le.accu2) then
-            ydel(iplane)=1.
-            xdel(iplane)=0.
+            ydel(iplane)=1.d0
+            xdel(iplane)=0.d0
             altc(iplane)=palt
         endif
         if ( tr.le.accu2.and.ta.gt.accu2) then
-            ydel(iplane)=0.
-            xdel(iplane)=1.*piz
+            ydel(iplane)=0.d0
+            xdel(iplane)=1.d0*piz
             altc(iplane)=palt
         endif
     endif
@@ -220,37 +220,37 @@ subroutine os (iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
     phi=phirad
     do l=1,np
         do m=-mu,mu
-            xl(m,l)=0.
+            xl(m,l)=0.d0
         enddo
     enddo
     do ifi=1,nfi
-        xlphim(ifi)=0.
+        xlphim(ifi)=0.d0
     enddo
 
 !CC initialization of look up table variable
     do i=1,mu
         nfilut(i)=0
         do j=1,61
-            rolut(i,j)=0.
-            filut(i,j)=0.
+            rolut(i,j)=0.d0
+            filut(i,j)=0.d0
         enddo
     enddo
-    its=acos(xmus)*180.0/pi
+    its=acos(xmus)*180.d0/pi
     do i=1,mu
         lutmuv=rm(i)
-        luttv=acos(lutmuv)*180./pi
-        iscama=int(180-abs(luttv-its))
-        iscami=int(180-(luttv+its))
+        luttv=acos(lutmuv)*180.d0/pi
+        iscama=int(180.d0-abs(luttv-its))
+        iscami=int(180.d0-(luttv+its))
         nbisca=int((iscama-iscami)/4)+1
         nfilut(i)=nbisca
-        filut(i,1)=0.0
-        filut(i,nbisca)=180.0
+        filut(i,1)=0.d0
+        filut(i,nbisca)=180.d0
         scaa=iscama
         do j=2,nfilut(i)-1
-            scaa=scaa-4.0
-            cscaa=cos(scaa*pi/180.)
+            scaa=scaa-4.d0
+            cscaa=cos(scaa*pi/180.d0)
             cfi=-(cscaa+xmus*lutmuv)/(sqrt(1-xmus*xmus)*sqrt(1.-lutmuv*lutmuv))
-            filut(i,j)=acos(cfi)*180.0/pi
+            filut(i,j)=acos(cfi)*180.d0/pi
         enddo
     enddo
 
@@ -262,8 +262,8 @@ subroutine os (iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
     ron=(1-aaaa)/(1+2*aaaa)
 !     rayleigh phase function
 !
-    beta0=1.
-    beta2=0.5*ron
+    beta0=1.d0
+    beta2=0.5d0*ron
 !
 !     fourier decomposition
 !
@@ -271,25 +271,25 @@ subroutine os (iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
         i4(j)=0
     enddo
     iborm=nbmu-3
-    if(abs (xmus-1.000000) .lt.1.e-06)iborm=0
+    if(abs (xmus-1.d0) .lt.1.d-06)iborm=0
     do 16 is=0,iborm
 !
 !    primary scattering
 !
         ig=1
-        roavion0=0.
-        roavion1=0.
-        roavion2=0.
-        roavion=0.
+        roavion0=0.d0
+        roavion1=0.d0
+        roavion2=0.d0
+        roavion=0.d0
         do j=-mu,mu
-            i3(j)=0.
+            i3(j)=0.d0
         enddo
 !
 !     kernel computations
 !
         isp=is
         call kernel(isp,mu,rm,xpl,psl,bp)
-        if(is.gt.0)beta0=0.
+        if(is.gt.0)beta0=0.d0
         do j=-mu,mu
             if(is.le.2) then
                 spl=xpl(0)
@@ -297,7 +297,7 @@ subroutine os (iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
                 sa2=bp(0,j)
             else
                 sa2=bp(0,j)
-                sa1=0.
+                sa1=0.d0
             endif
 
 !     primary scattering source function at every level within the layer
@@ -313,7 +313,7 @@ subroutine os (iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
 !     vertical integration, primary upward radiation
 !
       do k=1,mu
-          i1(nt,k)=0.
+          i1(nt,k)=0.d0
           zi1=i1(nt,k)
           yy=rm(k)
           do i=nt-1,0,-1
@@ -322,9 +322,9 @@ subroutine os (iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
               a=(i2(jj,k)-i2(i,k))/f
               b=i2(i,k)-a*h(i)
               c=exp(-f/yy)
-              d=1.0e+00-c
+              d=1.0d+00-c
               xx=h(i)-h(jj)*c
-              zi1=c*zi1+(d*(b+a*yy)+a*xx)*0.5e+00
+              zi1=c*zi1+(d*(b+a*yy)+a*xx)*0.5d+00
               i1(i,k)=zi1
           enddo
       enddo
@@ -332,18 +332,18 @@ subroutine os (iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
 !     vertical integration, primary downward radiation
 !
       do k=-mu,-1
-          i1(0,k)=0.
+          i1(0,k)=0.d0
           zi1=i1(0,k)
           yy=rm(k)
           do i=1,nt
               jj=i-1
               f=h(i)-h(jj)
               c=exp(f/yy)
-              d=1.0e+00-c
+              d=1.0d+00-c
               a=(i2(i,k)-i2(jj,k))/f
               b=i2(i,k)-a*h(i)
               xx=h(i)-h(jj)*c
-              zi1=c*zi1+(d*(b+a*yy)+a*xx)*0.5e+00
+              zi1=c*zi1+(d*(b+a*yy)+a*xx)*0.5d+00
               i1(i,k)=zi1
           enddo
       enddo
@@ -383,8 +383,8 @@ subroutine os (iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
             xpk=xpl(k)
             ypk=xpl(-k)
             do i=0,nt
-                ii1=0.
-                ii2=0.
+                ii1=0.d0
+                ii2=0.d0
                 x=xdel(i)
                 y=ydel(i)
                 do j=1,mu
@@ -399,8 +399,8 @@ subroutine os (iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
                     xdb=z*(xi1*bpjmk+xi2*bpjk)
                     ii1=ii1+xdb
                 enddo
-                if (abs(ii2).lt.1.E-30) ii2=0.
-                if (abs(ii1).lt.1.E-30) ii1=0.
+                if (abs(ii2).lt.1.d-30) ii2=0.d0
+                if (abs(ii1).lt.1.d-30) ii1=0.d0
                 i2(i,k)=ii2
                 i2(i,-k)=ii1
             enddo
@@ -408,8 +408,8 @@ subroutine os (iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
     else
         do k=1,mu
             do i=0,nt
-                ii1=0.
-                ii2=0.
+                ii1=0.d0
+                ii2=0.d0
                 x=xdel(i)
                 do j=1,mu
                     z=gb(j)
@@ -422,8 +422,8 @@ subroutine os (iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
                     xdb=z*(xi1*bpjmk+xi2*bpjk)
                     ii1=ii1+xdb
                 enddo
-                if (abs(ii2).lt.1.E-30) ii2=0.
-                if (abs(ii1).lt.1.E-30) ii1=0.
+                if (abs(ii2).lt.1.d-30) ii2=0.d0
+                if (abs(ii1).lt.1.d-30) ii1=0.d0
                 i2(i,k)=ii2
                 i2(i,-k)=ii1
             enddo
@@ -433,7 +433,7 @@ subroutine os (iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
 !   vertical integration, upward radiation
 !
     do k=1,mu
-        i1(nt,k)=0.
+        i1(nt,k)=0.d0
         zi1=i1(nt,k)
         yy=rm(k)
         do i=nt-1,0,-1
@@ -442,10 +442,10 @@ subroutine os (iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
             a=(i2(jj,k)-i2(i,k))/f
             b=i2(i,k)-a*h(i)
             c=exp(-f/yy)
-            d=1.e+00-c
+            d=1.d+00-c
             xx=h(i)-h(jj)*c
-            zi1=c*zi1+(d*(b+a*yy)+a*xx)*0.5e+00
-            if (abs(zi1).le.1.E-20) zi1=0.
+            zi1=c*zi1+(d*(b+a*yy)+a*xx)*0.5d+00
+            if (abs(zi1).le.1.d-20) zi1=0.d0
             i1(i,k)=zi1
         enddo
     enddo
@@ -453,19 +453,19 @@ subroutine os (iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
 !   vertical integration, downward radiation
 !
     do k=-mu,-1
-        i1(0,k)=0.
+        i1(0,k)=0.d0
         zi1=i1(0,k)
         yy=rm(k)
         do i=1,nt
             jj=i-1
             f=h(i)-h(jj)
             c=exp(f/yy)
-            d=1.e+00-c
+            d=1.d+00-c
             a=(i2(i,k)-i2(jj,k))/f
             b=i2(i,k)-a*h(i)
             xx=h(i)-h(jj)*c
-            zi1=c*zi1+(d*(b+a*yy)+a*xx)*0.5e+00
-            if (abs(zi1).le.1.E-20) zi1=0.
+            zi1=c*zi1+(d*(b+a*yy)+a*xx)*0.5d+00
+            if (abs(zi1).le.1.d-20) zi1=0.d0
             i1(i,k)=zi1
         enddo
     enddo
@@ -487,7 +487,7 @@ subroutine os (iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
 !   convergence test (geometrical serie)
 !
     if(ig.gt.2) then
-        z=0.
+        z=0.d0
         a1=roavion2
         d1=roavion1
         g1=roavion0
@@ -509,12 +509,12 @@ subroutine os (iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
                 endif
             enddo
 
-            if(z.lt.0.0001) then
+            if(z.lt.0.0001d0) then
 !
 !     successful test (geometrical serie)
 !
             do l=-mu,mu
-                y1=1.
+                y1=1.d0
                 d1=inm1(l)
                 g1=in(l)
                 if(d1.gt.accu) then
@@ -527,7 +527,7 @@ subroutine os (iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
             enddo
             d1=roavion1
             g1=roavion0
-            y1=1.
+            y1=1.d0
             if(d1.ge.accu) then
                 if(abs(g1-d1).ge.accu) then
                     y1=1-g1/d1
@@ -551,9 +551,10 @@ subroutine os (iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
     do l=-mu,mu
         i3(l)=i3(l)+in(l)
     enddo
+
     roavion=roavion+roavion0
 
-    z=0.
+    z=0.d0
     do l=-mu,mu
         if (abs(i3(l)).ge.accu) then
             y=abs(in(l)/i3(l))
@@ -562,7 +563,7 @@ subroutine os (iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
     enddo
 
 
-    if(z.lt.0.00001) go to 18
+    if(z.lt.0.00001d0) go to 18
     if(ig-igmax) 17,17,18
 18  continue
 
@@ -586,7 +587,7 @@ subroutine os (iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
 ! Look up table generation
     do m=1,mu
         do l=1,nfilut(m)
-            phimul=filut(m,l)*pi/180.
+            phimul=filut(m,l)*pi/180.d0
             rolut(m,l)=rolut(m,l)+delta0s*i3(m)*cos(is*(phimul+pi))
             enddo
     enddo
@@ -602,7 +603,7 @@ subroutine os (iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
         xlphim(ifi)=xlphim(ifi)+delta0s*roavion*cos(is*(phimul+pi))
     enddo
     xl(-mu,1)=xl(-mu,1)+delta0s*roavion*cos(is*(phirad+pi))
-    z=0.
+    z=0.d0
     do l=-mu,mu
         if(abs(i4(l)).ge.accu) then
             x=abs(i3(l)/i4(l))
@@ -610,7 +611,7 @@ subroutine os (iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
         endif
     enddo
 
-    if(z.gt.0.001) go to 16
+    if(z.gt.0.001d0) go to 16
     goto 19
 
 16  continue
