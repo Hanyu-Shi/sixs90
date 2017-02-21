@@ -2010,7 +2010,7 @@ subroutine LoadACRMdata
     use acrm_paras,only:nspchnl,acoef1,acoef2,ncub,thknot,p14,pi,nknots
 
     real(8) :: zctst(ncub),acztst(ncub),x1,x2
-    integer :: j,ntstz
+    integer :: j,ntstz,jw
 
     ntstz=nknots-1
     x1=0.0
