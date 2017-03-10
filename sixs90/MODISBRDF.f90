@@ -2,7 +2,7 @@ subroutine modisbrdf(p1,p2,p3,mu,np,rm,rp,brdfint)
     implicit none
     real(8) :: p1,p2,p3
     real(8) :: rts,rtv,rfi,rpha
-    real(8) :: cts,ctv,cfi,cpha!,ct0
+    real(8) :: cts,ctv,cfi,cpha
     real(8) :: sts,stv,sfi
     real(8) :: tanti,tantv
     real(8) :: cost,sint,tvar
