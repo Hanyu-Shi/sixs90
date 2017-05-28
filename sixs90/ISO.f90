@@ -2,9 +2,13 @@ subroutine iso(iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt,nt,mu,rm,gb,xf)
 
     use paramdef
     implicit none
+    integer :: mu
+    integer :: snt,nt,iplane,ntp,j,it,itp,i,ig,k,index,iwr,m
+    integer :: jj,l
+    logical:: ier
+    integer :: igmax,iaer_prof
     real(8) :: psl(-1:nqmax_p,-mu:mu)
 !  dimension for gauss integration
-    integer :: mu
     real(8) :: rm(-mu:mu),gb(-mu:mu)
 !  dimension for os computation
     real(8) ::  xf(-1:1)
@@ -22,10 +26,6 @@ subroutine iso(iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt,nt,mu,rm,gb,xf)
     real(8) :: tamoy,trmoy,pizmoy
     real(8) :: tamoyp,trmoyp,palt
     real(8) :: delta,sigma
-    integer :: snt,nt,iplane,ntp,j,it,itp,i,ig,k,index,iwr,m
-    integer :: jj,l
-    logical:: ier
-    integer :: igmax,iaer_prof
 
     ! HyS
     real(8) :: xmus

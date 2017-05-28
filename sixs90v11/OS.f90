@@ -6,14 +6,22 @@ subroutine os (iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
     implicit none
     integer :: nquad,ifi
     common /num_quad/ nquad
+    integer :: nbmu
+    integer :: mu,np,nfi
+    integer :: nfilut(mu),nbisca
+    integer :: snt
+    integer :: nt,iwr,iplane,mum1,ntp,j,it,itp,i,l,m,iborm
+    integer :: is,isp,ig,k,jj,index
+    logical :: ier
+    integer :: igmax,iaer_prof
+    
     real(8) :: pha,qha,uha,alphal,betal,gammal,zetal
     common /sixs_polar/ pha(nqmax_p),qha(nqmax_p),uha(nqmax_p),&
             alphal(0:nqmax_p),betal(0:nqmax_p),gammal(0:nqmax_p),zetal(0:nqmax_p)
-    integer :: nbmu
+    
 ! - to vary the number of quadratures
 
 !  dimension for gauss integration
-    integer :: mu,np,nfi
     real(8) :: rm(-mu:mu),gb(-mu:mu),rp(np),xlphim(nfi)
 !  dimension for os computation
     real(8) ::  xl(-mu:mu,np)
@@ -29,7 +37,7 @@ subroutine os (iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
     real(8) :: luttv,lutmuv,iscama,iscami,its,scaa,cscaa
     real(8) :: rolut(mu,41),filut(mu,41)
     real(8) :: psl(-1:nqmax_p,-mu:mu)
-    integer :: nfilut(mu),nbisca
+    
 !CCC End Variable for Look up table generation
     real(8) :: tamoy,trmoy,pizmoy
     real(8) :: tamoyp,trmoyp,palt,phirad
@@ -42,12 +50,7 @@ subroutine os (iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
     real(8) :: beta0,beta2,roavion0
     real(8) :: sa2,c,zi1,f,d,xpk,y
     real(8) :: a1,d1,g1,y1,delta0s
-    integer :: snt
-    integer :: nt,iwr,iplane,mum1,ntp,j,it,itp,i,l,m,iborm
-    integer :: is,isp,ig,k,jj,index
-    logical :: ier
     real(8) :: xx,xdb,bpjk,bpjmk,z,xi1,xi2,x,xpj,ypk,a,b,ii1,ii2
-    integer :: igmax,iaer_prof
     real(8) :: phimul,cfi
 
     common/sixs_del/delta,sigma

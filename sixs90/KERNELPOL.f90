@@ -5,6 +5,8 @@ subroutine kernelpol(is,mu,rm,xpl,xrl,xtl,bp,gr,gt,arr,art,att)
     implicit none
     integer :: nquad
     common /num_quad/ nquad
+    integer :: mu
+    integer :: is,ip1,j,i,k,ip,ig,l,lp,lm,ij
     real(8) :: pha,qha,uha,alphal,betal,gammal,zetal
     common /sixs_polar/ pha(nqmax_p),qha(nqmax_p),uha(nqmax_p),&
       alphal(0:nqmax_p),betal(0:nqmax_p),gammal(0:nqmax_p),&
@@ -13,13 +15,11 @@ subroutine kernelpol(is,mu,rm,xpl,xrl,xtl,bp,gr,gt,arr,art,att)
     real(8) :: tsl(-1:nqmax_p,-mu:mu)
 ! - to vary the number of quadratures
 
-    integer :: mu
     real(8) :: rm(-mu:mu)
     real(8) :: xpl(-mu:mu),xrl(-mu:mu),xtl(-mu:mu)
     real(8) :: bp(0:mu,-mu:mu),gr(0:mu,-mu:mu),gt(0:mu,-mu:mu)
     real(8) :: arr(0:mu,-mu:mu),art(0:mu,-mu:mu)
     real(8) :: att(0:mu,-mu:mu)
-    integer :: is,ip1,j,i,k,ip,ig,l,lp,lm,ij
     real(8) :: xdb,a,b,c,d,e,f,xx,rac3,x
     real(8) :: sbp,satt,sarr,sgr,sgt,sart
     real(8) :: r1,r2,r3

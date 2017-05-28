@@ -3,12 +3,13 @@ subroutine aero_prof (ta,piz,tr,hr,nt,xmus,h,ch,ydel,xdel,altc)
     use paramdef
     implicit none
     integer :: n
+    integer :: j,i,nt,num_z
     real(8) :: xdel(0:nt),ydel(0:nt),ch(0:nt),h(0:nt)
     real(8) :: altc(0:nt),ta,piz,tr,hr,xmus
     real(8) :: dz,z_up,dtau_ray,dtau_aer,dtau,dtau_OS
     real(8) :: alt_z,taer_z,taer55_z,ssa_aer
     real(8) :: z
-    integer :: j,i,nt,num_z
+    
     common /aeroprof/alt_z(0:nt_p_max),taer_z(0:nt_p_max),taer55_z(0:nt_p_max),num_z
 
 ! If the maximum aerosol height is less than 300 km, one additional

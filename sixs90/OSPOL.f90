@@ -6,12 +6,18 @@ subroutine ospol(iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
     implicit none
     integer :: nquad,ifi
     common /num_quad/ nquad
+    integer :: mu,np,nfi
+    integer :: snt
+    integer :: nt,iwr,iplane,mum1,ntp,j,it,itp,i,l,m,iborm
+    integer :: is,isp,ig,k,jj,index
+    integer :: igmax,iaer_prof
+	
+    logical :: ier
     real(8) :: pha,qha,uha,alphal,betal,gammal,zetal
     common /sixs_polar/ pha(nqmax_p),qha(nqmax_p),uha(nqmax_p), &
             alphal(0:nqmax_p),betal(0:nqmax_p),gammal(0:nqmax_p), &
             zetal(0:nqmax_p)
 
-    integer :: mu,np,nfi
     real(8) :: rm(-mu:mu),gb(-mu:mu),rp(np),xlphim(nfi)
 
     real(8) :: xli(-mu:mu,np),xlq(-mu:mu,np),xlu(-mu:mu,np)
@@ -46,17 +52,12 @@ subroutine ospol(iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
     real(8) :: beta0,beta2,gamma2,alpha2
     real(8) :: zi1,zq1,zu1,c,f,d,y
     real(8) :: a1,d1,g1,y1,r1,delta0s
-    integer :: snt
-    integer :: nt,iwr,iplane,mum1,ntp,j,it,itp,i,l,m,iborm
-    integer :: is,isp,ig,k,jj,index
-    logical :: ier
     real(8) :: xx,xdb,z,x,a,b
     real(8) :: bpjk,bpjmk,gtjk,gtjmk,gtkj,gtkmj,grjk,grjmk
     real(8) :: grkj,grkmj,arrjk,arrjmk,artjk,artjmk,artkj
     real(8) :: artkmj,attjk,attjmk
     real(8) :: ii1,ii2,qq1,qq2,uu1,uu2,xi1,xi2,xq1,xq2,xu1,xu2
     real(8) :: xpj,xrj,xtj,ypj,yrj,ytj,xpk,xrk,xtk,ypk,yrk,ytk
-    integer :: igmax,iaer_prof
     real(8) :: phimul
 
     common/sixs_del/delta,sigma

@@ -4,11 +4,13 @@ subroutine atmref(iaer,iaer_prof,tamoy,taer,trmoy,pizmoy,piza,                  
                   ipol,xlm1,xlm2,rorayl_fi,romix_fi,nfi,                            &
                   nfilut,filut,rolut,rolutq,rolutu)
     implicit none
+    integer :: mu,np,nfi
+    integer :: nfilut(mu)
+    integer :: iaer,nt,ipol,iaer_prof
+    integer :: i,ifi,j
+	
     real(8) :: rolut(mu,41),rolutq(mu,41),rolutu(mu,41),rolutd(mu,41)
     real(8) :: filut(mu,41)
-    integer :: nfilut(mu)
-
-    integer :: mu,np,nfi
     real(8) :: rm(-mu:mu),rp(np),gb(-mu:mu)
     real(8) :: tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt
     real(8) :: xlm2(-mu:mu,np)
@@ -20,9 +22,6 @@ subroutine atmref(iaer,iaer_prof,tamoy,taer,trmoy,pizmoy,piza,                  
     real(8) :: rurayl,ruaero,rumix
     real(8) :: xlm1(-mu:mu,np),xqm1(-mu:mu,np),xum1(-mu:mu,np)
     real(8) :: taerp,piza,taer
-
-    integer :: iaer,nt,ipol,iaer_prof
-    integer :: i,ifi,j
 
     common /sixs_del/ delta,sigma
 
