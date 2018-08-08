@@ -44,7 +44,7 @@ clean :
 
 # Dependencies of files
 mainlutaero.o: \
-    main.f90 \
+    mainlutaero.f90 \
     paramdef.o
 OXYG6.o: \
     OXYG6.f90
