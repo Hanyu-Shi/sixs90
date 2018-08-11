@@ -11,7 +11,7 @@ subroutine ospol(iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
     integer :: nt,iwr,iplane,mum1,ntp,j,it,itp,i,l,m,iborm
     integer :: is,isp,ig,k,jj,index
     integer :: igmax,iaer_prof
-	
+
     logical :: ier
     real(8) :: pha,qha,uha,alphal,betal,gammal,zetal
     common /sixs_polar/ pha(nqmax_p),qha(nqmax_p),uha(nqmax_p), &
@@ -75,8 +75,8 @@ subroutine ospol(iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
     piz=pizmoy
 
     iplane=0
-    acu=1.e-20
-    acu2=1.e-4
+    acu=1.d-20
+    acu2=1.d-4
     mum1=mu-1
 
     if(palt.le.900..and.palt.gt.0.0) then
@@ -303,7 +303,9 @@ subroutine ospol(iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
             yy=rm(k)
             do i=nt-1,0,-1
                 jj=i+1
-                f=h(jj)-h(i)
+                ! Hanyu
+                f=h(jj)-h(i) + epsilon(0.d0)
+                !f=h(jj)-h(i)
                 c=exp(-f/yy)
                 d=1.0e+00-c
                 xx=h(i)-h(jj)*c
@@ -335,7 +337,9 @@ subroutine ospol(iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
             yy=rm(k)
             do i=1,nt
                 jj=i-1
-                f=h(i)-h(jj)
+                ! Hanyu
+                f=h(i)-h(jj) + epsilon(0.d0)
+                !f=h(i)-h(jj)
                 c=exp(f/yy)
                 d=1.0e+00-c
                 xx=h(i)-h(jj)*c
@@ -552,7 +556,9 @@ subroutine ospol(iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
             yy=rm(k)
             do i=nt-1,0,-1
                 jj=i+1
-                f=h(jj)-h(i)
+                ! Hanyu
+                f=h(jj)-h(i) + epsilon(0.d0)
+                !f=h(jj)-h(i)
                 c=exp(-f/yy)
                 d=1.e+00-c
                 xx=h(i)-h(jj)*c
@@ -587,7 +593,9 @@ subroutine ospol(iaer_prof,tamoy,trmoy,pizmoy,tamoyp,trmoyp,palt, &
             yy=rm(k)
             do i=1,nt
                 jj=i-1
-                f=h(i)-h(jj)
+                ! Hanyu
+                f=h(i)-h(jj) + epsilon(0.d0)
+                !f=h(i)-h(jj)
                 c=exp(f/yy)
                 d=1.e+00-c
                 xx=h(i)-h(jj)*c
