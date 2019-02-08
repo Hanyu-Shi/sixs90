@@ -1,4 +1,4 @@
-subroutine prosailalbe(TypeLidf,LiDFa,LIDFb,Cab,Car,Cbrown, &
+subroutine prosailalbe(TypeLidf,LiDFa,LIDFb,Cab,Car,Anth,Cbrown, &
             Cw,Cm,N,lai,hspot,psoil,wlmoy,brdfalb)
     implicit none
     integer, parameter :: nta = 24, nfa = 48
@@ -7,7 +7,7 @@ subroutine prosailalbe(TypeLidf,LiDFa,LIDFb,Cab,Car,Cbrown, &
     real(8) :: mu1,mu2,si1,si2,rts,rtv,phi,pond,y
     integer :: k,j,l
     integer :: TypeLidf
-    real(8) :: LIDFa,LIDFb,Cab,Car,Cbrown,Cw,Cm,N,lai,hspot,psoil
+    real(8) :: LIDFa,LIDFb,Cab,Car,Anth,Cbrown,Cw,Cm,N,lai,hspot,psoil
 
     wl = wlmoy * 1000.d0
 
@@ -33,7 +33,7 @@ subroutine prosailalbe(TypeLidf,LiDFa,LIDFb,Cab,Car,Cbrown, &
                 rtv=ta(l)
                 phi=fa(k)
 
-                call pro_sail(TypeLidf,LiDFa,LIDFb,Cab,Car,Cbrown, &
+                call pro_sail(TypeLidf,LiDFa,LIDFb,Cab,Car,Anth,Cbrown, &
                     Cw,Cm,N,lai,hspot,psoil, &
                     rts/dr,rtv/dr,phi/dr,wl,y)
                 pond=mu1*mu2*si1*si2*wfa(k)*wta(j)*wta(l)

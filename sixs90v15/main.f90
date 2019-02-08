@@ -256,7 +256,7 @@ program ssssss
          s1,s2,s3,s4,ccomp1(10), ccomp2(10)
 ! varibles used in prosail
     integer :: TypeLidf
-    real(8) :: LIDFa,LIDFb,Cab,Car,Cbrown,Cw,Cm,N0,lai,hspot,psoil
+    real(8) :: LIDFa,LIDFb,Cab,Car,Anth,Cbrown,Cw,Cm,N0,lai,hspot,psoil
 ! variables used in ART
     real(8) :: ART_dia,ART_M
 
@@ -1891,6 +1891,7 @@ program ssssss
 !                line2: Cab,Car,Cbrown,Cw,Cm,N0,lai,hspot,psoil        c
 !                    Cab     -chlorophyll content (ug.cm-2)            c
 !                    Car     -carotenoid content (ug.cm-2)             c
+!                    Anth    -Anthocyanins content (cm2.ug-1)          c
 !                    Cbrown  -brown pigment content                    c
 !                    Cw      -EWT (cm)                                 c
 !                    Cm      -LMA (g.cm-2)                             c
@@ -2357,7 +2358,7 @@ program ssssss
 !**********************************************************************c
       if (ibrdf .eq. 13) then
         read(iread,*)TypeLidf,LIDFa,LIDFb
-        read(iread,*)Cab,Car,Cbrown,Cw,Cm,N0,lai,hspot,psoil
+        read(iread,*)Cab,Car,Anth,Cbrown,Cw,Cm,N0,lai,hspot,psoil
 
         do l = iinf, isup
           srm(-1) = phirad
@@ -2365,7 +2366,7 @@ program ssssss
           srm(0) = xmus
           wl = 0.25d0 + (l-1)*step
 
-          call prosailbrdf(TypeLidf,LiDFa,LIDFb,Cab,Car,Cbrown, &
+          call prosailbrdf(TypeLidf,LiDFa,LIDFb,Cab,Car,Anth,Cbrown, &
             Cw,Cm,N0,lai,hspot,psoil, &
             wl,1,1,srm,srp,sbrdftmp)
           sbrdf(l) = sbrdftmp(1,1)
@@ -2374,18 +2375,18 @@ program ssssss
         rm(-mu) = phirad
         rm(mu) = xmuv
         rm(0) = xmus
-        call prosailbrdf(TypeLidf,LiDFa,LIDFb,Cab,Car,Cbrown, &
+        call prosailbrdf(TypeLidf,LiDFa,LIDFb,Cab,Car,Anth,Cbrown, &
             Cw,Cm,N0,lai,hspot,psoil, &
             wlmoy,mu,np,rm,rp,brdfints)
 
         rm(-mu)=2.d0*pi-phirad
         rm(mu)=xmus
         rm(0)=xmuv
-        call prosailbrdf(TypeLidf,LiDFa,LIDFb,Cab,Car,Cbrown, &
+        call prosailbrdf(TypeLidf,LiDFa,LIDFb,Cab,Car,Anth,Cbrown, &
             Cw,Cm,N0,lai,hspot,psoil, &
             wlmoy,mu,np,rm,rp,brdfintv)
 
-        call prosailalbe(TypeLidf,LiDFa,LIDFb,Cab,Car,Cbrown, &
+        call prosailalbe(TypeLidf,LiDFa,LIDFb,Cab,Car,Anth,Cbrown, &
             Cw,Cm,N0,lai,hspot,psoil, &
             wlmoy,albbrdf)
         goto 69
@@ -3741,7 +3742,7 @@ program ssssss
 !                                                                      c
 !                                                                      c
 !**********************************************************************c
-   98 format(/////,1h*,30(1h*),17h 6SV version 1.1 ,31(1h*),t79          &
+   98 format(/////,1h*,30(1h*),17h 6SV version 1.5 ,31(1h*),t79          &
              ,1h*,/,1h*,t79,1h*,/,                                       &
              1h*,22x,34h geometrical conditions identity  ,t79,1h*,/,    &
              1h*,22x,34h -------------------------------  ,t79,1h*)

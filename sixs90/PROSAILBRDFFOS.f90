@@ -1,4 +1,4 @@
-subroutine prosailbrdffos(TypeLidf,LiDFa,LIDFb,Cab,Car,Cbrown, &
+subroutine prosailbrdffos(TypeLidf,LiDFa,LIDFb,Cab,Car,Anth,Cbrown, &
             Cw,Cm,N,lai,hspot,psoil, &
             wlmoy,mu,rm,rosur,wfisur,fisur)
     use paramdef
@@ -8,7 +8,7 @@ subroutine prosailbrdffos(TypeLidf,LiDFa,LIDFb,Cab,Car,Cbrown, &
     real(8) :: mu1,mu2
     real(8) :: dr,rtv,rts,rfi,r_lamda,bq
     integer :: TypeLidf
-    real(8) :: LIDFa,LIDFb,Cab,Car,Cbrown,Cw,Cm,N,lai,hspot,psoil
+    real(8) :: LIDFa,LIDFb,Cab,Car,Anth,Cbrown,Cw,Cm,N,lai,hspot,psoil
 
     integer :: k,j,i
 
@@ -35,7 +35,7 @@ subroutine prosailbrdffos(TypeLidf,LiDFa,LIDFb,Cab,Car,Cbrown, &
                 if (rfi > (2.*pisp)) rfi = rfi - 2.*pisp
                 if (rfi > pisp) rfi = 2.*pisp - rfi
 
-                call pro_sail(TypeLidf,LiDFa,LIDFb,Cab,Car,Cbrown, &
+                call pro_sail(TypeLidf,LiDFa,LIDFb,Cab,Car,Anth,Cbrown, &
                     Cw,Cm,N,lai,hspot,psoil, &
                     rts/dr,rtv/dr,rfi/dr,r_lamda,bq) ! trans to degree
                 rosur(i,j,k) = bq

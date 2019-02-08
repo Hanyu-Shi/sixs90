@@ -1,5 +1,5 @@
 !***********************************************************************
-subroutine prosailbrdf(TypeLidf,LiDFa,LIDFb,Cab,Car,Cbrown, &
+subroutine prosailbrdf(TypeLidf,LiDFa,LIDFb,Cab,Car,Anth,Cbrown, &
             Cw,Cm,N,lai,hspot,psoil, &
             wlmoy,mu,np,rm,rp,brdfint)
     implicit none
@@ -7,7 +7,7 @@ subroutine prosailbrdf(TypeLidf,LiDFa,LIDFb,Cab,Car,Cbrown, &
     real(8) :: wlmoy,rm(-mu:mu),rp(np),brdfint(-mu:mu,np)
     real(8) :: pir,dr,rtv,rts,rfi,r_lamda,bq
     integer :: TypeLidf
-    real(8) :: LIDFa,LIDFb,Cab,Car,Cbrown,Cw,Cm,N,lai,hspot,psoil
+    real(8) :: LIDFa,LIDFb,Cab,Car,Anth,Cbrown,Cw,Cm,N,lai,hspot,psoil
 
     integer :: k,j
 
@@ -27,7 +27,7 @@ subroutine prosailbrdf(TypeLidf,LiDFa,LIDFb,Cab,Car,Cbrown, &
             if (rfi .gt. (2.*pir)) rfi = rfi - 2.*pir
             if (rfi .gt. pir) rfi = 2.*pir - rfi
 
-            call pro_sail(TypeLidf,LiDFa,LIDFb,Cab,Car,Cbrown, &
+            call pro_sail(TypeLidf,LiDFa,LIDFb,Cab,Car,Anth,Cbrown, &
                     Cw,Cm,N,lai,hspot,psoil, &
                     rts/dr,rtv/dr,rfi/dr,r_lamda,bq) ! trans to degree
             brdfint(j,k) = bq
