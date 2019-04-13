@@ -97,7 +97,7 @@ subroutine ART(sza,vza,phi,dia,M,wl,refl)
 
     ipos = minloc(abs(lambda - wl))
 
-    r = 4.0*cos(-1.d0)*(m_im(ipos(1))+M) / lambda(ipos(1))
+    r = 4.0*acos(-1.d0)*(m_im(ipos(1))+M) / lambda(ipos(1))
     L = 13.0*dia*1000.0
     alpha = sqrt(r*L)
 
