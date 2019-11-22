@@ -31,4 +31,24 @@ Aug 30, 2016.
 
 * See sixs90v15/ for some updates
 
-May 24, 2017
+  May 24, 2017
+
+
+* This work was present at the 2019 IGARSS conference. 
+
+  [Updates of the 6S radiative transfer model: a case study of 6S+PROSAIL](https://ieeexplore.ieee.org/document/8899146/).
+
+  Nov. 22, 2019
+
+**Reference**
+
+[1] H. Shi and Z. Xiao, “Updates of the 6S radiative transfer model: a case study of 6S+PROSAIL,” in 2019 IEEE International Geoscience and Remote Sensing Symposium (IGARSS), Yokohama, Japan, 2019, pp. 2879–2882. [doi:10.1109/IGARSS.2019.8899146](https://ieeexplore.ieee.org/document/8899146/)
+
+[2] E. F. Vermote, D. Tanre, J. L. Deuze, M. Herman, and J.-J. Morcette, “Second Simulation of the Satellite Signal in the Solar Spectrum, 6S: an overview,” IEEE Trans. Geosci. Remote Sens., vol. 35, no. 3, pp. 675–686, May 1997. [doi:10.1109/36.581987](https://doi.org/10.1109/36.581987)
+
+[3] S. Y. Kotchenova, E. F. Vermote, R. Matarrese, and F. J. Klemm, Jr., “Validation of a vector version of the 6S radiative transfer code for atmospheric correction of satellite data. Part I: Path radiance,” Appl. Opt., vol. 45, no. 26, pp. 6762–6774, 2006. [doi:10.1364/AO.45.006762](https://doi.org/10.1364/AO.45.006762)
+
+[4] S. Y. Kotchenova and E. F. Vermote, “Validation of a vector version of the 6S radiative transfer code for atmospheric correction of satellite data. Part II. Homogeneous Lambertian and anisotropic surfaces,” Appl. Opt., vol. 46, no. 20, pp. 4455–4464, 2007. [doi:10.1364/AO.46.004455](https://doi.org/10.1364/AO.46.004455)
+
+[5] S. Y. Kotchenova, E. F. Vermote, R. Levy, and A. Lyapustin, “Radiative transfer codes for atmospheric correction and aerosol retrieval: intercomparison study,” Appl. Opt., vol. 47, no. 13, pp. 2215–2226, 2008. [doi:10.1364/AO.47.002215](https://doi.org/10.1364/AO.47.002215)
+
