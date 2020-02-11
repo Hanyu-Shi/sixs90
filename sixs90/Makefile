@@ -24,7 +24,8 @@ EXE2 = sixs90
 EXE3 = sixslutaero90
 FC = gfortran
 
-CFLAGS = -Wall -g -Wtabs -ffpe-trap=zero,overflow,invalid,denormal,underflow 
+# CFLAGS = -Wall -g -Wtabs -ffpe-trap=zero,overflow,invalid,denormal,underflow 
+CFLAGS = -Wall -g -Wtabs
 
 all : $(EXE2) $(EXE3)
 

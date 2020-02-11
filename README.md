@@ -18,7 +18,7 @@ Several bugs are fixed,
 
 **Usage**
 
-* There are two main functions, main.f90 and mainlutaero.f90. The Makefile in sixs90 folder is recommend, or just compile them separately in IDE.
+* There are two main functions, main.f90 and mainlutaero.f90. The Makefile in sixs90 folder is recommended, or just compile them separately in IDE.
 
 **Attention**
 * Although the code is in free form style, many statements are written using old syntax. You can help improve and extend this code.
@@ -39,6 +39,14 @@ Aug 30, 2016.
   [Updates of the 6S radiative transfer model: a case study of 6S+PROSAIL](https://ieeexplore.ieee.org/document/8899146/).
 
   Nov. 22, 2019
+ 
+* Update to 6S-V2.1 (November, 2018)
+   
+   * Solar irradiance spectrum is updated
+   * A "truncation method" is adopted to avoid negative discriminant. Compare main.f90 and main_v0.f90 for details
+
+  Feb. 11, 2020
+
 
 **Reference**
 
