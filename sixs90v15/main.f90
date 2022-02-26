@@ -798,7 +798,7 @@ program ssssss
 !                  where r is the radius (in micron), V is the volume, c
 !                  and dV/d(logr) is in (cm3/cm2/micron)               c
 !             then you have to enter: nr and ni for each wavelength    c
-!                  where nr and ni are respectively the real(8) :: and the   c
+!                  where nr and ni are respectively real(8) and the    c
 !                  imaginary parts of the refractive index             c
 !                                                                      c
 !  or you can use the results computed and saved previously            c

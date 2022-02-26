@@ -8,13 +8,11 @@ program ssssss
 !                                                                      c
 !       ********************************************************       c
 !       *           Second Simulation of a Satellite Signal    *       c
-!       *           in the Solar Spectrum Vectorial            *       c
+!       *                 in the Solar Spectrum                *       c
 !       *           ... (6SV) ....... (6SV) ...... (6SV) ...   *       c
+!       *                      Version  2.0                    *       c
 !       *                                                      *       c
-!       *                      Version  2.1                    *       c
-!       *                                                      *       c
-!       *                     November  2017                   *       c
-!       *                                                      *       c
+!       *                      Vector Code                     *       c
 !       *                                                      *       c
 !       *  This code predicts the satellite signal from 0.25   *       c
 !       *  to 4.0 microns assuming cloudless atmosphere. The   *       c
@@ -47,32 +45,36 @@ program ssssss
 !                                                                      c
 !**********************************************************************c
 
+
+
+
+
+
+
 !**********************************************************************c
 !                                                                      c
 !                                                                      c
 !       ********************************************************       c
-!       *       The principal authors of this code are         *       c
+!       *             The authors of this code are             *       c
 !       *                                                      *       c
-!       *            (1) E.F. Vermote;                         *       c
-!       *            (2,1) J.C. Roger;                         *       c
+!       *            (1) E.F. Vermote and S.Y. Kotchenova;     *       c
+!       *            (2) J.C. Roger;                           *       c
 !       *            (3) D. Tanre, J.L. Deuze, M. Herman;      *       c
-!       *            (4) J.J. Mocrette.                        *       c
-!       *                                                      *       c
-!       *        Thanks to:                                    *       c
-!       *            T. Miura (5), S. Kotchenova (2),          *       c
-!       *            P. Zelazowski (6)                         *       c
-!       *                                                      *       c
+!       *            (4) J.J. Morcrette;                       *       c
+!       *            (5) T. Miura.                             *       c
 !       *                                                      *       c
 !       *                   affiliated with                    *       c
 !       *                                                      *       c
-!       *     (1) NASA Goddard Space                           *       c
-!       *         Flight Center (code 619, Greenbelt, MD       *       c
+!       *     (1) Department of Geography, University of       *       c
+!       *         Maryland (4321 Hartwick Road, College Park,  *       c
+!       *         MD 20740, USA) and NASA Goddard Space        *       c
+!       *         Flight Center (code 614.5, Greenbelt, MD     *       c
 !       *         20771, USA)                                  *       c
 !       *                                                      *       c
-!       *     (2) Department of Geographical sciences,         *       c
-!       *         University of Maryland                       *       c
-!       *         4321 Hartwick Road,                          *       C
-!       *         College Park, MD 20740, USA                  *       C
+!       *     (2) Observatoire de Physique du Globe de         *       c
+!       *         Glermont-Ferrand Universite Blaise Pascal    *       c
+!       *         (24 Avenue des Landais, 63177 Aubiere,       *       c
+!       *         France)                                      *       c
 !       *                                                      *       c
 !       *     (3) Laboratoire d'Optique Atmospherique,         *       c
 !       *         Universite des Sciences et Techniques de     *       c
@@ -86,11 +88,6 @@ program ssssss
 !       *     (5) University of Hawaii at Manoa                *       c
 !       *         (1910 East_West Road, Sherman Lab 101        *       c
 !       *         Honolulu, HI 96822)                          *       c
-!       *                                                      *       c
-!       *     (6) Environmental Change Institute,              *       c
-!       *         University of Oxford                         *       c
-!       *         and                                          *       c
-!       *         university of Wavsaw                         *       c
 !       *                                                      *       c
 !       *                                                      *       c
 !       *                                                      *       c
@@ -2605,14 +2602,6 @@ program ssssss
           /(1.-lsphalbt*albbrdf)
        write(6,*) "a,b,c",coefa,coefb,coefc
        write(6,*) "discri2 ",(coefb*coefb-4*coefa*coefc)
-
-!  ADD by JC to avoid negative discriminant to determine the rhobarbar
-       xtestdiscri=(coefb*coefb-4*coefa*coefc)
-       if (xtestdiscri.lt.0.0)then
-         rbard=albbrdf
-         goto 487
-       endif
-
       discri=sqrt(coefb*coefb-4*coefa*coefc)
       rbard=(-coefb+discri)/(2*coefa)
         Write(6,*) "rbard albbrdf 1rst iteration", rbard,albbrdf
@@ -2623,8 +2612,6 @@ program ssssss
       discri=sqrt(coefb*coefb-4*coefa*coefc)
       rbard=(-coefb+discri)/(2*coefa)
        Write(6,*) "rbard albbrdf 2nd iteration", rbard,albbrdf
-
- 487    continue
 
       do l=iinf,isup
         rocl(l)=sbrdf(l)
@@ -3908,23 +3895,12 @@ program ssssss
         coefc=-(romixsur-rbarc-rbarpc-rdirc)
         coefb=lddiftt*ludiftt
         coefa=(lddiftt+lddirtt)*(ludiftt+ludirtt)*lsphalbt/(1.-lsphalbt*rbardest)
-    
-!  ADD by JC to avoid negative discriminant to determine the rhobarbar
-           xtestdiscri=(coefb*coefb-4*coefa*coefc)
-           if (xtestdiscri.lt.0.0)then
-            rbard=albbrdf
-            goto 488
-           endif
-        
         discri=sqrt(coefb*coefb-4*coefa*coefc)
         rbard=(-coefb+discri)/(2*coefa)
 !        Write(6,*) "rbard albbrdf 1rst iteration", rbard,albbrdf
         coefa=(lddiftt+lddirtt)*(ludiftt+ludirtt)*lsphalbt/(1.-lsphalbt*rbard)
         discri=sqrt(coefb*coefb-4*coefa*coefc)
-        rbard=(-coefb+discri)/(2*coefa)
-        
- 488    continue        
-        
+        rbard=(-coefb+discri)/(2*coefa)        
 !       Write(6,*) "rbard albbrdf 2nd iteration", rbard,albbrdf
         robarbarstar=rbard/rogbrdf
         coefc=(rapp/tgasm-ainr(1,1)/tgasm)
