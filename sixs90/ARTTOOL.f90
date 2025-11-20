@@ -88,7 +88,7 @@ subroutine ART(sza,vza,phi,dia,M,wl,refl)
     mu_s = cos(sza)
     mu_v = cos(vza)
 
-    theta = acos(-mu_s*mu_v + sin(sza)*sin(vza)*cos(phi)) / dr
+    theta = acos(mu_s*mu_v + sin(sza)*sin(vza)*cos(phi)) / dr
     p_theta = 11.1*exp(-0.087*theta) + 1.1*exp(-0.014*theta)
     R0 = 0.25* ((1.247 + 5.157*mu_s*mu_v + p_theta) / (mu_s+mu_v) + 1.186)
 
